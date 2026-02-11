@@ -1,0 +1,59 @@
+en:
+  # Settings labels
+  oidc_setting_issuer_url: "Issuer URL"
+  oidc_setting_client_identifier: "Client ID"
+  oidc_setting_client_secret: "Client Secret"
+  oidc_setting_scopes: "Scopes"
+  oidc_setting_button_label: "Login Button Label"
+  oidc_setting_auto_registration: "Auto-registration"
+  oidc_setting_email_matching: "Email Matching"
+
+  # Settings hints
+  oidc_hint_issuer_url: "The OIDC provider issuer URL (e.g. https://accounts.google.com)"
+  oidc_hint_scopes: "Space-separated list of OAuth scopes (default: openid email profile)"
+  oidc_hint_auto_registration: "Automatically create accounts for new users who sign in via OIDC"
+  oidc_hint_email_matching: "Match existing Redmine users by email address when no OIDC link exists"
+  oidc_hint_callback_url: "Copy this URL into your OIDC provider's redirect URI configuration."
+
+  # Labels
+  oidc_label_or: "or"
+  oidc_label_oidc_account: "OpenID Connect"
+  oidc_label_linked: "Account linked"
+  oidc_label_not_linked: "No OIDC account linked."
+  oidc_label_issuer: "Issuer"
+  oidc_label_uid: "User ID"
+  oidc_label_callback_url: "Callback URL"
+  oidc_default_button_label: "Sign in with OpenID Connect"
+
+  # Buttons
+  oidc_button_link: "Link OIDC Account"
+  oidc_button_unlink: "Unlink OIDC Account"
+
+  # Admin labels
+  oidc_label_admin_oidc_status: "OIDC Status"
+
+  # Confirmations
+  oidc_confirm_unlink: "Are you sure you want to unlink your OIDC account?"
+
+  # Flash messages - success
+  oidc_notice_linked: "Your OIDC account has been linked successfully."
+  oidc_notice_unlinked: "Your OIDC account has been unlinked."
+  oidc_notice_already_linked: "This OIDC account is already linked to your account."
+  oidc_admin_notice_unlinked: "OIDC account link has been removed."
+
+  # Flash messages - warnings
+  oidc_warning_not_linked: "No OIDC account is linked to unlink."
+
+  # Flash messages - errors
+  oidc_error_not_configured: "OIDC is not configured. Please contact your administrator."
+  oidc_error_provider_unreachable: "Could not reach the OIDC provider. Please try again later."
+  oidc_error_invalid_state: "Invalid OIDC state. Please try signing in again."
+  oidc_error_provider_denied: "Authentication was denied by the provider: %{message}"
+  oidc_error_missing_code: "No authorization code received from the provider."
+  oidc_error_no_access_token: "Failed to obtain an access token from the provider."
+  oidc_error_missing_sub: "The OIDC provider did not return a user identifier."
+  oidc_error_callback_failed: "An error occurred during OIDC authentication. Please try again."
+  oidc_error_uid_taken: "This OIDC account is already linked to another user."
+  oidc_error_no_matching_user: "No matching Redmine account was found. Please contact your administrator."
+  oidc_error_user_inactive: "Your account is not active. Please contact your administrator."
+  oidc_error_auto_register_failed: "Automatic account creation failed. Please contact your administrator."

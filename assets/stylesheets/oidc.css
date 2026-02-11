@@ -1,0 +1,112 @@
+/* OIDC Login Separator */
+.oidc-login-separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.2em 0 1em;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.oidc-login-separator::before,
+.oidc-login-separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.oidc-login-separator span {
+  padding: 0 0.8em;
+}
+
+/* OIDC Login Button */
+.oidc-login-button-wrapper {
+  text-align: center;
+  margin: 0.8em 0;
+}
+
+.oidc-login-button {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #3b82f6;
+  color: #fff !important;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.oidc-login-button:hover {
+  background-color: #2563eb;
+  text-decoration: none;
+}
+
+/* My Account - OIDC Link Status */
+.oidc-linked-status {
+  margin: 0.5em 0 1em;
+}
+
+.oidc-issuer,
+.oidc-uid {
+  font-size: 0.9em;
+  color: #666;
+  word-break: break-all;
+}
+
+.oidc-link-button {
+  display: inline-block;
+  padding: 6px 16px;
+  background-color: #3b82f6;
+  color: #fff !important;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.oidc-link-button:hover {
+  background-color: #2563eb;
+  text-decoration: none;
+}
+
+.oidc-unlink-button {
+  display: inline-block;
+  padding: 6px 16px;
+  background-color: #ef4444;
+  color: #fff !important;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+.oidc-unlink-button:hover {
+  background-color: #dc2626;
+  text-decoration: none;
+}
+
+/* Admin OIDC link info */
+.oidc-admin-link-info {
+  display: block;
+  margin: 0.3em 0;
+}
+
+.oidc-admin-link-info .oidc-issuer,
+.oidc-admin-link-info .oidc-uid {
+  display: inline;
+  margin-right: 1em;
+}
+
+.oidc-admin-link-info .oidc-unlink-button {
+  margin-left: 0.5em;
+  padding: 2px 10px;
+  font-size: 0.85em;
+  vertical-align: middle;
+}
+
+.oidc-admin-no-link {
+  color: #888;
+  font-style: italic;
+}

@@ -1,0 +1,11 @@
+<% settings = Setting.plugin_redmine_oidc || {} %>
+<% if settings['client_identifier'].present? %>
+  <div class="oidc-login-separator">
+    <span><%= l(:oidc_label_or) %></span>
+  </div>
+  <div class="oidc-login-button-wrapper">
+    <%= link_to settings['button_label'].presence || l(:oidc_default_button_label),
+                oidc_authorize_path(back_url: params[:back_url]),
+                class: 'oidc-login-button' %>
+  </div>
+<% end %>

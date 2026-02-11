@@ -1,0 +1,30 @@
+<% settings = Setting.plugin_redmine_oidc || {} %>
+<% if settings['client_identifier'].present? %>
+  <% links = user.oidc_user_links %>
+  <% current_issuer = settings['issuer_url'].to_s.chomp('/') %>
+  <% linked_to_current = links.any? { |l| l.issuer == current_issuer } %>
+  <div class="splitcontent">
+    <div class="splitcontentleft">
+      <fieldset class="box">
+        <legend><%= l(:oidc_label_oidc_account) %></legend>
+        <% if links.any? %>
+          <% links.each do |link| %>
+            <p class="oidc-linked-status">
+              <strong><%= l(:oidc_label_linked) %></strong><br/>
+              <span class="oidc-issuer"><%= l(:oidc_label_issuer) %>: <%= h(link.issuer) %></span><br/>
+              <span class="oidc-uid"><%= l(:oidc_label_uid) %>: <%= h(link.uid) %></span>
+            </p>
+            <%= link_to l(:oidc_button_unlink), oidc_unlink_path(id: link.id),
+                  method: :post,
+                  data: { confirm: l(:oidc_confirm_unlink) },
+                  class: 'oidc-unlink-button' %>
+          <% end %>
+        <% end %>
+        <% unless linked_to_current %>
+          <p><%= l(:oidc_label_not_linked) %></p>
+          <%= link_to l(:oidc_button_link), oidc_authorize_path, class: 'oidc-link-button' %>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+<% end %>

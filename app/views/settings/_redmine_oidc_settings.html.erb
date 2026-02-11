@@ -1,0 +1,46 @@
+<p>
+  <label><%= l(:oidc_setting_issuer_url) %></label>
+  <%= text_field_tag 'settings[issuer_url]', @settings['issuer_url'], size: 60 %>
+  <em class="info"><%= l(:oidc_hint_issuer_url) %></em>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_client_identifier) %></label>
+  <%= text_field_tag 'settings[client_identifier]', @settings['client_identifier'], size: 60 %>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_client_secret) %></label>
+  <%= password_field_tag 'settings[client_secret]', @settings['client_secret'], size: 60 %>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_scopes) %></label>
+  <%= text_field_tag 'settings[scopes]', @settings['scopes'], size: 60 %>
+  <em class="info"><%= l(:oidc_hint_scopes) %></em>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_button_label) %></label>
+  <%= text_field_tag 'settings[button_label]', @settings['button_label'], size: 60 %>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_auto_registration) %></label>
+  <%= hidden_field_tag 'settings[auto_registration]', '0' %>
+  <%= check_box_tag 'settings[auto_registration]', '1', @settings['auto_registration'] == '1' %>
+  <em class="info"><%= l(:oidc_hint_auto_registration) %></em>
+</p>
+
+<p>
+  <label><%= l(:oidc_setting_email_matching) %></label>
+  <%= hidden_field_tag 'settings[email_matching]', '0' %>
+  <%= check_box_tag 'settings[email_matching]', '1', @settings['email_matching'] == '1' %>
+  <em class="info"><%= l(:oidc_hint_email_matching) %></em>
+</p>
+
+<fieldset class="box">
+  <legend><%= l(:oidc_label_callback_url) %></legend>
+  <code><%= "#{Setting.protocol}://#{Setting.host_name}/oidc/callback" %></code>
+  <em class="info"><%= l(:oidc_hint_callback_url) %></em>
+</fieldset>

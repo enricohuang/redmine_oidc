@@ -1,0 +1,21 @@
+<% settings = Setting.plugin_redmine_oidc || {} %>
+<% if settings['client_identifier'].present? && User.current.admin? %>
+  <% links = user.oidc_user_links %>
+  <p>
+    <label><%= l(:oidc_label_admin_oidc_status) %></label>
+    <% if links.any? %>
+      <% links.each do |link| %>
+        <span class="oidc-admin-link-info">
+          <span class="oidc-issuer"><%= l(:oidc_label_issuer) %>: <%= h(link.issuer) %></span>
+          <span class="oidc-uid"><%= l(:oidc_label_uid) %>: <%= h(link.uid) %></span>
+          <%= link_to l(:oidc_button_unlink), oidc_admin_unlink_path(link),
+                method: :post,
+                data: { confirm: l(:oidc_confirm_unlink) },
+                class: 'oidc-unlink-button' %>
+        </span>
+      <% end %>
+    <% else %>
+      <span class="oidc-admin-no-link"><%= l(:oidc_label_not_linked) %></span>
+    <% end %>
+  </p>
+<% end %>
