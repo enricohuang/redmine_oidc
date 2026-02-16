@@ -61,7 +61,7 @@ Tested with Redmine 5.1 (Rails 6.1) and Redmine 6.0 (Rails 8.1).
 
    ```bash
    cd /path/to/redmine/plugins
-   git clone https://github.com/redmine/redmine_oidc.git
+   git clone https://github.com/enricohuang/redmine_oidc.git
    ```
 
 2. Run the plugin migration:
