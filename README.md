@@ -5,6 +5,7 @@ OpenID Connect single sign-on plugin for Redmine. Works with any OIDC-compliant 
 ## Features
 
 - **SSO login** -- adds a configurable "Sign in with ..." button to the Redmine login page
+- **Primary OIDC login mode** -- optionally promote the OIDC button and keep local username/password login as a fallback
 - **Self-service account linking** -- users can link their own OIDC identity from My Account, even if their OIDC email differs from their Redmine email
 - **Conflict detection** -- if an OIDC identity is already linked to another Redmine user, linking is rejected
 - **Auto-registration** -- optionally create Redmine accounts on first OIDC login
@@ -84,6 +85,7 @@ Go to **Administration > Plugins > Redmine OIDC > Configure** and fill in:
 | **Client Secret** | The OAuth client secret. |
 | **Scopes** | Space-separated scopes (default: `openid email profile`). |
 | **Login Button Label** | Text shown on the SSO button on the login page. |
+| **Prefer OIDC login** | Shows the OIDC button first and moves local username/password login into a fallback panel. |
 | **Auto-registration** | When enabled, new Redmine accounts are created automatically on first OIDC login. |
 | **Email Matching** | When enabled, existing Redmine users are matched by email address if no OIDC link exists. |
 
