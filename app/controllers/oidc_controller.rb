@@ -1,6 +1,8 @@
 require_relative '../../lib/redmine_oidc/oidc_client'
 
 class OidcController < ApplicationController
+  LOCAL_LOGIN_PARAM = 'local_login'.freeze
+
   skip_before_action :check_if_login_required, only: [:authorize, :callback]
   skip_before_action :check_password_change, only: [:authorize, :callback]
   skip_before_action :check_twofa_activation, only: [:authorize, :callback]
@@ -9,7 +11,7 @@ class OidcController < ApplicationController
     client = RedmineOidc::OidcClient.new
     unless client.configured?
       flash[:error] = l(:oidc_error_not_configured)
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
@@ -30,7 +32,7 @@ class OidcController < ApplicationController
     rescue => e
       Rails.logger.error "OIDC authorize error: #{e.message}"
       flash[:error] = l(:oidc_error_provider_unreachable)
-      redirect_to signin_path
+      redirect_to login_redirect_path
     end
   end
 
@@ -41,19 +43,19 @@ class OidcController < ApplicationController
     expected_state = session.delete(:oidc_state)
     if expected_state.blank? || params[:state] != expected_state
       flash[:error] = l(:oidc_error_invalid_state)
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
     if params[:error].present?
       flash[:error] = l(:oidc_error_provider_denied, message: params[:error_description] || params[:error])
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
     unless params[:code].present?
       flash[:error] = l(:oidc_error_missing_code)
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
@@ -63,7 +65,7 @@ class OidcController < ApplicationController
       access_token = token_data['access_token']
       unless access_token.present?
         flash[:error] = l(:oidc_error_no_access_token)
-        redirect_to signin_path
+        redirect_to login_redirect_path
         return
       end
 
@@ -75,7 +77,7 @@ class OidcController < ApplicationController
 
       unless uid.present?
         flash[:error] = l(:oidc_error_missing_sub)
-        redirect_to signin_path
+        redirect_to login_redirect_path
         return
       end
 
@@ -90,7 +92,7 @@ class OidcController < ApplicationController
     rescue => e
       Rails.logger.error "OIDC callback error: #{e.class} - #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}"
       flash[:error] = l(:oidc_error_callback_failed)
-      redirect_to signin_path
+      redirect_to login_redirect_path
     end
   end
 
@@ -168,20 +170,20 @@ class OidcController < ApplicationController
       user = auto_register_user(userinfo, issuer, uid, email)
       unless user&.persisted?
         flash[:error] = l(:oidc_error_auto_register_failed)
-        redirect_to signin_path
+        redirect_to login_redirect_path
         return
       end
     end
 
     if user.nil?
       flash[:error] = l(:oidc_error_no_matching_user)
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
     unless user.active?
       flash[:error] = l(:oidc_error_user_inactive)
-      redirect_to signin_path
+      redirect_to login_redirect_path
       return
     end
 
@@ -240,5 +242,17 @@ class OidcController < ApplicationController
     update_sudo_timestamp!
     call_hook(:controller_account_success_authentication_after, {user: user})
     redirect_back_or_default my_page_path
+  end
+
+  def login_redirect_path
+    redirect_params = {}
+    redirect_params[LOCAL_LOGIN_PARAM] = '1' if auto_login_enabled?
+    redirect_params[:back_url] = session[:oidc_back_url] if session[:oidc_back_url].present?
+    signin_path(redirect_params)
+  end
+
+  def auto_login_enabled?
+    settings = Setting.plugin_redmine_oidc || {}
+    settings['oidc_auto_login'] == '1'
   end
 end
