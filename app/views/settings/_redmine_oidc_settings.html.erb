@@ -26,6 +26,13 @@
 </p>
 
 <p>
+  <label><%= l(:oidc_setting_oidc_primary_login) %></label>
+  <%= hidden_field_tag 'settings[oidc_primary_login]', '0' %>
+  <%= check_box_tag 'settings[oidc_primary_login]', '1', @settings['oidc_primary_login'] == '1' %>
+  <em class="info"><%= l(:oidc_hint_oidc_primary_login) %></em>
+</p>
+
+<p>
   <label><%= l(:oidc_setting_auto_registration) %></label>
   <%= hidden_field_tag 'settings[auto_registration]', '0' %>
   <%= check_box_tag 'settings[auto_registration]', '1', @settings['auto_registration'] == '1' %>

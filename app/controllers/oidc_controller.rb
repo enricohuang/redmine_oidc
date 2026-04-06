@@ -235,7 +235,9 @@ class OidcController < ApplicationController
 
   def successful_authentication(user)
     logger.info "OIDC: Successful authentication for '#{user.login}' from #{request.remote_ip}" if logger
+    user.update_last_login_on!
     self.logged_user = user
+    update_sudo_timestamp!
     call_hook(:controller_account_success_authentication_after, {user: user})
     redirect_back_or_default my_page_path
   end

@@ -1,1 +1,19 @@
 <%= stylesheet_link_tag 'oidc', plugin: 'redmine_oidc' %>
+<% settings = Setting.plugin_redmine_oidc || {} %>
+<% if settings['oidc_primary_login'] == '1' %>
+  <style>
+    body.controller-account.action-login #content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.controller-account.action-login #content > #login-form {
+      display: none;
+    }
+
+    body.controller-account.action-login #content > .oidc-login-panel--primary {
+      order: -1;
+      margin-bottom: 1.25rem;
+    }
+  </style>
+<% end %>

@@ -1,3 +1,7 @@
+.oidc-login-panel {
+  margin: 0;
+}
+
 /* OIDC Login Separator */
 .oidc-login-separator {
   display: flex;
@@ -25,6 +29,10 @@
   margin: 0.8em 0;
 }
 
+.oidc-login-button-wrapper--primary {
+  margin: 0 0 1em;
+}
+
 .oidc-login-button {
   display: inline-block;
   padding: 8px 20px;
@@ -41,6 +49,54 @@
 .oidc-login-button:hover {
   background-color: #2563eb;
   text-decoration: none;
+}
+
+.oidc-login-panel--primary {
+  max-width: 420px;
+}
+
+.oidc-local-login-fallback {
+  margin-top: 0.75em;
+  border: 1px solid #d5d5d5;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.oidc-local-login-fallback summary {
+  padding: 0.85em 1em;
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
+}
+
+.oidc-local-login-fallback__body {
+  padding: 0 1em 1em;
+}
+
+.oidc-local-login-fallback__body form {
+  display: grid;
+  gap: 0.75em;
+}
+
+.oidc-local-login-fallback__body label {
+  font-weight: 600;
+}
+
+.oidc-local-login-fallback__body input[type="text"],
+.oidc-local-login-fallback__body input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.oidc-local-login-autologin {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: normal !important;
+}
+
+.oidc-local-login-fallback__body input[type="submit"] {
+  justify-self: start;
 }
 
 /* My Account - OIDC Link Status */

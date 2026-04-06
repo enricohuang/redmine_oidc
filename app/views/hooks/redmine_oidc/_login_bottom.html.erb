@@ -1,11 +1,47 @@
 <% settings = Setting.plugin_redmine_oidc || {} %>
 <% if settings['client_identifier'].present? %>
-  <div class="oidc-login-separator">
-    <span><%= l(:oidc_label_or) %></span>
-  </div>
-  <div class="oidc-login-button-wrapper">
-    <%= link_to settings['button_label'].presence || l(:oidc_default_button_label),
-                oidc_authorize_path(back_url: params[:back_url]),
-                class: 'oidc-login-button' %>
+  <% primary_login = settings['oidc_primary_login'] == '1' %>
+  <div class="oidc-login-panel <%= 'oidc-login-panel--primary' if primary_login %>">
+    <% unless primary_login %>
+      <div class="oidc-login-separator">
+        <span><%= l(:oidc_label_or) %></span>
+      </div>
+    <% end %>
+
+    <div class="oidc-login-button-wrapper <%= 'oidc-login-button-wrapper--primary' if primary_login %>">
+      <%= link_to settings['button_label'].presence || l(:oidc_default_button_label),
+                  oidc_authorize_path(back_url: params[:back_url]),
+                  class: 'oidc-login-button' %>
+    </div>
+
+    <% if primary_login %>
+      <details class="oidc-local-login-fallback" <%= 'open' if params[:username].present? || flash[:error].present? || flash[:warning].present? %>>
+        <summary><%= l(:oidc_button_local_login) %></summary>
+
+        <div class="oidc-local-login-fallback__body">
+          <%= form_tag(signin_path, onsubmit: 'return keepAnchorOnSignIn(this);') do %>
+            <%= back_url_hidden_field_tag %>
+
+            <label for="oidc-primary-username"><%= l(:field_login) %></label>
+            <%= text_field_tag 'username', params[:username], id: 'oidc-primary-username', autocomplete: 'username' %>
+
+            <label for="oidc-primary-password">
+              <%= l(:field_password) %>
+              <%= link_to(l(:label_password_lost), lost_password_path, class: 'lost_password') if Setting.lost_password? %>
+            </label>
+            <%= password_field_tag 'password', nil, id: 'oidc-primary-password', autocomplete: 'current-password' %>
+
+            <% if Setting.autologin? %>
+              <label for="oidc-primary-autologin" class="oidc-local-login-autologin">
+                <%= check_box_tag 'autologin', 1, false, id: 'oidc-primary-autologin' %>
+                <%= l(:label_stay_logged_in) %>
+              </label>
+            <% end %>
+
+            <%= submit_tag l(:button_login), id: 'oidc-primary-login-submit' %>
+          <% end %>
+        </div>
+      </details>
+    <% end %>
   </div>
 <% end %>
