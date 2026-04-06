@@ -5,6 +5,7 @@ en:
   oidc_setting_client_secret: "Client Secret"
   oidc_setting_scopes: "Scopes"
   oidc_setting_button_label: "Login Button Label"
+  oidc_setting_oidc_auto_login: "Auto-login with OIDC"
   oidc_setting_oidc_primary_login: "Prefer OIDC login"
   oidc_setting_auto_registration: "Auto-registration"
   oidc_setting_email_matching: "Email Matching"
@@ -12,10 +13,12 @@ en:
   # Settings hints
   oidc_hint_issuer_url: "The OIDC provider issuer URL (e.g. https://accounts.google.com)"
   oidc_hint_scopes: "Space-separated list of OAuth scopes (default: openid email profile)"
+  oidc_hint_oidc_auto_login: "Automatically start the OIDC login flow when a user opens the Redmine sign-in page."
   oidc_hint_oidc_primary_login: "Show the OIDC button first and keep local username/password login behind a fallback toggle."
   oidc_hint_auto_registration: "Automatically create accounts for new users who sign in via OIDC"
   oidc_hint_email_matching: "Match existing Redmine users by email address when no OIDC link exists"
   oidc_hint_callback_url: "Copy this URL into your OIDC provider's redirect URI configuration."
+  oidc_hint_emergency_login_url: "Use this URL to bypass automatic OIDC redirect and reach the local Redmine login form."
 
   # Labels
   oidc_label_or: "or"
@@ -25,6 +28,7 @@ en:
   oidc_label_issuer: "Issuer"
   oidc_label_uid: "User ID"
   oidc_label_callback_url: "Callback URL"
+  oidc_label_emergency_login_url: "Emergency Login URL"
   oidc_default_button_label: "Sign in with OpenID Connect"
 
   # Buttons

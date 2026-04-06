@@ -8,6 +8,7 @@ class RedmineOidcLoginPageTest < Redmine::IntegrationTest
       'client_secret' => 'redmine-secret',
       'scopes' => 'openid email profile',
       'button_label' => 'Sign in with OIDC',
+      'oidc_auto_login' => '0',
       'oidc_primary_login' => '0',
       'auto_registration' => '0',
       'email_matching' => '1'
@@ -37,5 +38,20 @@ class RedmineOidcLoginPageTest < Redmine::IntegrationTest
     assert_select 'details.oidc-local-login-fallback input[name=password]'
     assert_includes response.body, '#content > #login-form'
     assert_includes response.body, 'display: none;'
+  end
+
+  def test_local_login_bypass_shows_normal_login_form_even_when_primary_login_is_enabled
+    Setting.plugin_redmine_oidc = plugin_settings(
+      'oidc_auto_login' => '1',
+      'oidc_primary_login' => '1'
+    )
+
+    get '/login', params: {local_login: '1'}
+
+    assert_response :success
+    assert_select '#login-form input[name=username]'
+    assert_select '.oidc-login-separator span', text: 'or'
+    assert_select 'details.oidc-local-login-fallback', 0
+    assert_not_includes response.body, '#content > #login-form {'
   end
 end

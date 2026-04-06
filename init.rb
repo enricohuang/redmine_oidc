@@ -13,6 +13,7 @@ Redmine::Plugin.register :redmine_oidc do
     'issuer_url'        => '',
     'scopes'            => 'openid email profile',
     'button_label'      => 'Sign in with OpenID Connect',
+    'oidc_auto_login'   => '0',
     'oidc_primary_login' => '0',
     'auto_registration' => '0',
     'email_matching'    => '1'

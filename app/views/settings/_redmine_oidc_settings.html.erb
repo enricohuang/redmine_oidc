@@ -26,6 +26,13 @@
 </p>
 
 <p>
+  <label><%= l(:oidc_setting_oidc_auto_login) %></label>
+  <%= hidden_field_tag 'settings[oidc_auto_login]', '0' %>
+  <%= check_box_tag 'settings[oidc_auto_login]', '1', @settings['oidc_auto_login'] == '1' %>
+  <em class="info"><%= l(:oidc_hint_oidc_auto_login) %></em>
+</p>
+
+<p>
   <label><%= l(:oidc_setting_oidc_primary_login) %></label>
   <%= hidden_field_tag 'settings[oidc_primary_login]', '0' %>
   <%= check_box_tag 'settings[oidc_primary_login]', '1', @settings['oidc_primary_login'] == '1' %>
@@ -50,4 +57,10 @@
   <legend><%= l(:oidc_label_callback_url) %></legend>
   <code><%= "#{Setting.protocol}://#{Setting.host_name}/oidc/callback" %></code>
   <em class="info"><%= l(:oidc_hint_callback_url) %></em>
+</fieldset>
+
+<fieldset class="box">
+  <legend><%= l(:oidc_label_emergency_login_url) %></legend>
+  <code><%= "#{Setting.protocol}://#{Setting.host_name}#{signin_path(local_login: 1)}" %></code>
+  <em class="info"><%= l(:oidc_hint_emergency_login_url) %></em>
 </fieldset>

@@ -1,6 +1,6 @@
 <% settings = Setting.plugin_redmine_oidc || {} %>
 <% if settings['client_identifier'].present? %>
-  <% primary_login = settings['oidc_primary_login'] == '1' %>
+  <% primary_login = settings['oidc_primary_login'] == '1' && params[:local_login].blank? %>
   <div class="oidc-login-panel <%= 'oidc-login-panel--primary' if primary_login %>">
     <% unless primary_login %>
       <div class="oidc-login-separator">
