@@ -2,9 +2,6 @@
 <% settings = Setting.plugin_redmine_oidc || {} %>
 <% local_login = params[:local_login].present? %>
 <% oidc_auto_login_ready = settings['oidc_auto_login'] == '1' && settings['issuer_url'].present? && settings['client_identifier'].present? && settings['client_secret'].present? %>
-<% if controller.controller_name == 'account' && controller.action_name == 'login' && oidc_auto_login_ready && !local_login %>
-  <meta http-equiv="refresh" content="0;url=<%= h(oidc_authorize_path(back_url: params[:back_url])) %>">
-<% end %>
 <% if settings['oidc_primary_login'] == '1' && !local_login %>
   <style>
     body.controller-account.action-login #content {

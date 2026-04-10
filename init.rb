@@ -25,3 +25,8 @@ unless User.reflect_on_association(:oidc_user_links)
     has_many :oidc_user_links, dependent: :destroy
   end
 end
+
+Rails.application.config.after_initialize do
+  require_relative 'lib/redmine_oidc/account_controller_patch'
+  AccountController.include(RedmineOidc::AccountControllerPatch)
+end
