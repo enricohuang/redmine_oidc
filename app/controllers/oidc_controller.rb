@@ -255,4 +255,21 @@ class OidcController < ApplicationController
     settings = Setting.plugin_redmine_oidc || {}
     settings['oidc_auto_login'] == '1'
   end
+
+  # Default URL options for generating URLs based on host_name and protocol
+  # defined in application settings.
+  def self.default_url_options
+    options = {:protocol => Setting.protocol}
+    if Setting.host_name.to_s =~ /\A(https?\:\/\/)?(.+?)(\:(\d+))?(\/.+)?\z/i
+      host, port, prefix = $2, $4, $5
+      options.merge!(
+        {
+          :host => host, :port => port, :script_name => prefix
+        }
+      )
+    else
+      options[:host] = Setting.host_name
+    end
+    options
+  end
 end
