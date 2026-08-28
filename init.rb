@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_oidc do
   name 'Redmine OIDC'
   author 'Redmine OIDC Plugin'
   description 'OpenID Connect single sign-on for Redmine. Works with Google, Microsoft, and any OIDC-compliant provider.'
-  version '1.0.0'
+  version '1.1.0'
   url 'https://github.com/enricohuang/redmine_oidc'
 
   settings default: {
